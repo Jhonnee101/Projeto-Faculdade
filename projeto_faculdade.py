@@ -22,7 +22,7 @@ def adicionar_produtos(planilha):
         if linha_atual == 1:
             comanda.cell(row=linha_atual, column=1, value="Produtos")
             comanda.cell(row=linha_atual, column=2, value="Preço")
-            comanda.cell(row=linha_atual, column=3, value="Quant")
+            comanda.cell(row=linha_atual, column=3, value="Quant.")
             comanda.cell(row=linha_atual, column=4, value="Valor R$")
             linha_atual += 2
         
@@ -68,6 +68,9 @@ def fechar_comanda(planilha):
 
         print("Calculando a soma dos valores dos produtos...")
         print(f"Total a pagar: {total} R$")
+        pagamento = float(input("Qual o valor do pagamento? "))
+        troco = pagamento - total
+        print(f"O seu troco será {troco:.2f} R$, Obrigado pela preferencia")
 
         del planilha[num_comanda]
         print("Comanda fechada.")
