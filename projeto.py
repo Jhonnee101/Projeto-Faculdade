@@ -44,7 +44,6 @@ def adicionar_produtos(planilha):
                 comanda.cell(row=linha_atual, column=2, value=Preco)
                 comanda.cell(row=linha_atual, column=3, value=Quantidade)
                 comanda.cell(row=linha_atual, column=4, value=Valor)
-                
                 linha_atual += 1
             else:
                 print("Produtos salvos com sucesso")
@@ -52,12 +51,25 @@ def adicionar_produtos(planilha):
     else:
         print("Comanda não encontrada.")
 
+def calcular_soma_celulas(celulas):
+    soma = 0
+    for row in celulas:
+        for cell in row:
+            soma += cell.value if cell.value else 0
+    return soma
+
 def fechar_comanda(planilha):
     num_comanda = input("Digite o número da comanda a ser fechada: ")
-    if num_comanda in planilha.sheetnames:
-        produtos = planilha[num_comanda].cell(row=2, column=1).value
-        print(f"{num_comanda} contém os seguintes produtos: {produtos}")
-        planilha.remove(planilha[num_comanda])
+
+    if num_comanda in planilha:
+        comanda = planilha[num_comanda]
+        celulas_para_somar = comanda['D3':'D100']
+        total = calcular_soma_celulas(celulas_para_somar)
+
+        print("Calculando a soma dos valores dos produtos...")
+        print(f"Total a pagar: {total} R$")
+
+        del planilha[num_comanda]
         print("Comanda fechada.")
     else:
         print("Comanda não encontrada.")
@@ -94,5 +106,5 @@ def menu():
         else:
             print("Opção inválida. Por favor, escolha uma opção válida.")
 
-if __name__ == "__main__":
-    menu()
+
+menu()
