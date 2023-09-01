@@ -1,3 +1,5 @@
+#Utilizar o comando "pip install openpyxl" para instalar o modulo !!!
+
 from openpyxl import Workbook, load_workbook
 
 def criar_planilha():
